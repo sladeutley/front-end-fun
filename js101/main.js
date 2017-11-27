@@ -134,9 +134,35 @@ for (let i = 100; i > 1; i = i / 2) {
   console.log("did it work?", i);
 }
 
-// strings have indexes and lengths, too
-// let word = "Happy";
+// // strings have indexes and lengths, too
+let word = "Happy";
 for (let i = 0; i < word.length; i++) {
   const element = word[i];
   console.log("letter", element);
 }
+
+// string methods
+const phrase = "the quick brown fox jumps over the lazy dog.";
+
+console.log(phrase.indexOf("t"));
+console.log(phrase.charAt(23));
+
+console.log(phrase.replace("lazy", "fuzzy"));
+
+console.log(phrase.replace(/o/g, "gretd"));
+
+console.log(`${"Ho ".repeat(3)}, Merry Christmas`);
+console.log("Ho ".repeat(3) + "Merry Christmas");
+
+console.log(`${3 + 4} is a great number`);
+
+// let's reverse a string by using array methods, too.
+let phrase2 = "Otto is my name";
+// let wordArr = phrase2.split(" ");
+console.log(
+  "reversed",
+  phrase2 // chain a bunch of array calls together
+    .split(" ") // turns string into an array
+    .reverse() // array method
+    .join(" monkey ") // array method that turns array into string
+);
