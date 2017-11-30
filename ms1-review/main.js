@@ -9,17 +9,17 @@ let rainbowH1 = document.getElementById("rainbowH1");
 
 let dogPics = {
   pics: [
-    { url: "img/dog1.jpeg", title: "Happy Dog" },
-    { url: "img/dog2.jpeg", title: "Fuzzy Dog" },
-    { url: "img/dog3.jpeg", title: "Barking Dog" }
+    { url: "img/dog1.jpeg", title: "Happy Dog", cat: "dog" },
+    { url: "img/dog2.jpeg", title: "Fuzzy Dog", cat: "dog" },
+    { url: "img/dog3.jpeg", title: "Barking Dog", cat: "dog" }
   ]
 };
 
 let bowPics = {
   pics: [
-    { url: "img/rainbow1.jpeg", title: "Happy rainbow" },
-    { url: "img/rainbow2.jpeg", title: "Fuzzy rainbow" },
-    { url: "img/rainbow3.jpeg", title: "Barking rainbow" }
+    { url: "img/rainbow1.jpeg", title: "Happy rainbow", cat: "rainbow" },
+    { url: "img/rainbow2.jpeg", title: "Fuzzy rainbow", cat: "rainbow" },
+    { url: "img/rainbow3.jpeg", title: "Barking rainbow", cat: "rainbow" }
   ]
 };
 
@@ -42,56 +42,39 @@ for (let i = 0; i < bowPics.pics.length; i++) {
   rainbowContent.appendChild(section);
 }
 
+function updateCard(cards, category) {
+  for (let i = 0; i < cards.length; i++) {
+    // image change
+    // border change
+    cards[i].classList.toggle(`fancy-border`);
+    cards[i].classList.toggle(`${category}-fied`);
+  }
+}
+
+function updateText(btn, h1, cat1, cat2) {
+  // h1 text change
+  // button text change
+  btn.classList.toggle(cat1);
+  if (btn.classList.contains(cat1)) {
+    console.log(this);
+    event.target.innerHTML = `${cat2}ify It!`;
+    h1.innerHTML = cat1;
+  } else {
+    event.target.innerHTML = `${cat1}fy It!`;
+    h1.innerHTML = cat2;
+  }
+}
+
 // Click on a button and make the pictures swap out with something else
 // event listener on each button
 monkeyBtn.addEventListener("click", function() {
-  console.log("Is this thing on?");
-  monkeyBtn.classList.toggle("monkey");
   let dogCards = document.getElementsByClassName("dog-card");
-  for (let i = 0; i < dogCards.length; i++) {
-    // image change
-    if (this.classList.contains("monkey")) {
-      dogCards[i].style.backgroundImage = "url(img/dog-monkey.jpeg)";
-    } else {
-      dogCards[i].style.backgroundImage = `url(${dogPics.pics[i].url})`;
-    }
-    // border change
-    dogCards[i].classList.toggle("fancy-border");
-  }
-  // button text change
-  // h1 text change
-  if (this.classList.contains("monkey")) {
-    console.log(this);
-    this.innerHTML = "Dogify It!";
-    dogH1.innerHTML = "Monkey";
-  } else {
-    this.innerHTML = "Monkeyfy It!";
-    dogH1.innerHTML = "Dog";
-  }
+  updateCard(dogCards, "monkey");
+  updateText(monkeyBtn, dogH1, "monkey", "dog");
 });
 
 horseBtn.addEventListener("click", function() {
-  console.log("Is this thing on?");
-  this.classList.toggle("horse");
   let horseCards = document.getElementsByClassName("rainbow-card");
-  for (let i = 0; i < horseCards.length; i++) {
-    if (this.classList.contains("horse")) {
-      // image change
-      horseCards[i].style.backgroundImage = "url(img/horse-rainbow.jpeg)";
-    } else {
-      horseCards[i].style.backgroundImage = `url(${bowPics.pics[i].url})`;
-    }
-    // border change
-    horseCards[i].classList.toggle("fancy-border");
-  }
-  // button text change
-  // h1 text change
-  if (this.classList.contains("horse")) {
-    console.log(this);
-    this.innerHTML = "Rainbowfy It!";
-    rainbowH1.innerHTML = "Horse";
-  } else {
-    this.innerHTML = "Horsefy It!";
-    rainbowH1.innerHTML = "Rainbow";
-  }
+  updateCard(horseCards, "horse");
+  updateText(horseBtn, rainbowH1, "horse", "rainbow");
 });
