@@ -2,8 +2,8 @@ console.log("ms1 review");
 
 let dogContent = document.getElementById("dogs");
 let rainbowContent = document.getElementById("rainbows");
-let monkeyBtn = document.getElementById("monkeyfy");
-let horseBtn = document.getElementById("horsefy");
+let dogBtn = document.getElementById("dog");
+let rainbowBtn = document.getElementById("rainbow");
 let dogH1 = document.getElementById("dogH1");
 let rainbowH1 = document.getElementById("rainbowH1");
 
@@ -43,17 +43,17 @@ for (let i = 0; i < bowPics.pics.length; i++) {
 }
 
 function updateCard(cards, category) {
+  console.log("cards", cards);
+
   for (let i = 0; i < cards.length; i++) {
-    // image change
-    // border change
+    // image change and border change
     cards[i].classList.toggle(`fancy-border`);
     cards[i].classList.toggle(`${category}-fied`);
   }
 }
 
 function updateText(btn, h1, cat1, cat2) {
-  // h1 text change
-  // button text change
+  // h1 text change and button text change
   btn.classList.toggle(cat1);
   if (btn.classList.contains(cat1)) {
     console.log(this);
@@ -67,14 +67,19 @@ function updateText(btn, h1, cat1, cat2) {
 
 // Click on a button and make the pictures swap out with something else
 // event listener on each button
-monkeyBtn.addEventListener("click", function() {
-  let dogCards = document.getElementsByClassName("dog-card");
-  updateCard(dogCards, "monkey");
-  updateText(monkeyBtn, dogH1, "monkey", "dog");
-});
-
-horseBtn.addEventListener("click", function() {
-  let horseCards = document.getElementsByClassName("rainbow-card");
-  updateCard(horseCards, "horse");
-  updateText(horseBtn, rainbowH1, "horse", "rainbow");
-});
+let buttons = document.getElementsByTagName("button");
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", function() {
+    console.log(event.target.id, event.target.getAttribute("data-pairId"));
+    updateCard(
+      document.getElementsByClassName(`${event.target.id}-card`),
+      event.target.getAttribute("data-pairId")
+    );
+    updateText(
+      event.target,
+      `${event.target.id}H1`,
+      event.target.getAttribute("data-pairId"),
+      event.target.id
+    );
+  });
+}
