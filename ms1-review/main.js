@@ -1,85 +1,124 @@
 console.log("ms1 review");
 
-let dogContent = document.getElementById("dogs");
-let rainbowContent = document.getElementById("rainbows");
-let dogBtn = document.getElementById("dog");
-let rainbowBtn = document.getElementById("rainbow");
-let dogH1 = document.getElementById("dogH1");
-let rainbowH1 = document.getElementById("rainbowH1");
-
 let dogPics = {
   pics: [
-    { url: "img/dog1.jpeg", title: "Happy Dog", cat: "dog" },
-    { url: "img/dog2.jpeg", title: "Fuzzy Dog", cat: "dog" },
-    { url: "img/dog3.jpeg", title: "Barking Dog", cat: "dog" }
+    {
+      url: "img/dog1.jpeg",
+      title: "Happy Dog",
+      cat: "dog",
+      pairCat: "monkey"
+    },
+    {
+      url: "img/dog2.jpeg",
+      title: "Fuzzy Dog",
+      cat: "dog",
+      pairCat: "monkey"
+    },
+    {
+      url: "img/dog3.jpeg",
+      title: "Barking Dog",
+      cat: "dog",
+      pairCat: "monkey"
+    }
   ]
 };
 
 let bowPics = {
   pics: [
-    { url: "img/rainbow1.jpeg", title: "Happy rainbow", cat: "rainbow" },
-    { url: "img/rainbow2.jpeg", title: "Fuzzy rainbow", cat: "rainbow" },
-    { url: "img/rainbow3.jpeg", title: "Barking rainbow", cat: "rainbow" }
+    {
+      url: "img/rainbow1.jpeg",
+      title: "Happy rainbow",
+      cat: "rainbow",
+      pairCat: "horse"
+    },
+    {
+      url: "img/rainbow2.jpeg",
+      title: "Fuzzy rainbow",
+      cat: "rainbow",
+      pairCat: "horse"
+    },
+    {
+      url: "img/rainbow3.jpeg",
+      title: "Barking rainbow",
+      cat: "rainbow",
+      pairCat: "horse"
+    }
   ]
 };
 
-// dynamically create some elements to insert pics into
-// make n sections: n is based on number of imgs are available
-// insert the pictures
-// loop through the images and create sections one at a time
-
-for (let i = 0; i < dogPics.pics.length; i++) {
-  let section = document.createElement("section");
-  section.setAttribute("class", "dog-card card");
-  section.style.backgroundImage = `url(${dogPics.pics[i].url})`;
-  dogContent.appendChild(section);
-}
-
-for (let i = 0; i < bowPics.pics.length; i++) {
-  let section = document.createElement("section");
-  section.setAttribute("class", "rainbow-card card");
-  section.style.backgroundImage = `url(${bowPics.pics[i].url})`;
-  rainbowContent.appendChild(section);
-}
-
-function updateCard(cards, category) {
-  console.log("cards", cards);
-
-  for (let i = 0; i < cards.length; i++) {
-    // image change and border change
-    cards[i].classList.toggle(`fancy-border`);
-    cards[i].classList.toggle(`${category}-fied`);
+// ********************************** button stuff **********************************
+// An object we can use to make button objects that link to it
+const buttonFactory = {
+  init: function(cat, pairCat) {
+    this.category = cat;
+    this.pairCat = pairCat;
+    this.gallery = document.getElementsByClassName(`${cat}-card`);
+  },
+  updateCards: function() {
+    let cards = this.gallery;
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.toggle(`fancy-border`);
+      cards[i].classList.toggle(`${this.pairCat}-fied`);
+    }
+  },
+  updateText: function(btnEl) {
+    btnEl.classList.toggle("active");
+    let cat = this.category;
+    let pairCat = this.pairCat;
+    let h1 = document.getElementById(`${this.category}H1`);
+    if (btnEl.classList.contains("active")) {
+      btnEl.innerHTML = `${cat}ify It!`;
+      h1.innerHTML = capitalizeWord(pairCat);
+    } else {
+      btnEl.innerHTML = `${pairCat}fy It!`;
+      h1.innerHTML = capitalizeWord(cat);
+    }
   }
+};
+
+// concatenate the first letter of the word, set to uppercase, with the remaining letters of the word
+// because there's no "capitalize" method for a string. wat?
+function capitalizeWord(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-function updateText(btn, h1, cat1, cat2) {
-  // h1 text change and button text change
-  btn.classList.toggle(cat1);
-  if (btn.classList.contains(cat1)) {
-    console.log(this);
-    event.target.innerHTML = `${cat2}ify It!`;
-    h1.innerHTML = cat1;
-  } else {
-    event.target.innerHTML = `${cat1}fy It!`;
-    h1.innerHTML = cat2;
-  }
-}
+function makeButton(category, categoryPair) {
+  // create a new button object and set its unique values with its init method
+  let btn = Object.create(buttonFactory);
+  btn.init(category, categoryPair);
 
-// Click on a button and make the pictures swap out with something else
-// event listener on each button
-let buttons = document.getElementsByTagName("button");
-for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", function() {
-    console.log(event.target.id, event.target.getAttribute("data-pairId"));
-    updateCard(
-      document.getElementsByClassName(`${event.target.id}-card`),
-      event.target.getAttribute("data-pairId")
-    );
-    updateText(
-      event.target,
-      `${event.target.id}H1`,
-      event.target.getAttribute("data-pairId"),
-      event.target.id
-    );
+  // make a button element to add to the DOM
+  let btnElement = document.createElement("button");
+  btnElement.setAttribute("id", btn.category);
+  btnElement.setAttribute("data-pairId", btn.pairCat);
+  btnElement.innerHTML = `${btn.pairCat}fy It!`;
+
+  btnElement.addEventListener("click", () => {
+    btn.updateCards();
+    btn.updateText(btnElement);
   });
+  return btnElement;
 }
+
+// **************************** DOM population on page load **********************************
+// this replaces the two loops we ran to populate each <article> with its pictures
+(function populateGalleries(picCollection) {
+  // loop through the array of arrays we passed in
+  picCollection.forEach(function(pics, index) {
+    let parentEl, cat, pairCat;
+    //loop through each array of pics
+    pics.forEach(function(pic, index) {
+      // assign values to variables defined above
+      cat = pic.cat;
+      parentEl = document.getElementById(`${cat}-pics`);
+      pairCat = pic.pairCat;
+
+      let section = document.createElement("section");
+      section.setAttribute("class", `${cat}-card card`);
+      section.style.backgroundImage = `url(${pic.url})`;
+      parentEl.appendChild(section);
+    });
+    let button = makeButton(cat, pairCat);
+    parentEl.appendChild(button);
+  });
+})([bowPics.pics, dogPics.pics]); // This function runs right after we define it. We pass in the two pics arrays
