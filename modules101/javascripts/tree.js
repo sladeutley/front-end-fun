@@ -11,21 +11,38 @@
 // We want a public AND a private interface for our modules
 // Redo our tree using block scope with let and const
 
-let tree;
+// let tree;
 
-{
+// {
+//   let height = 10;
+//   let species = "fir";
+
+//   const getHeight = () => {
+//     return height;
+//   };
+
+//   const getTreeSpecies = () => species;
+
+//   const growTree = inches => {
+//     height = height + inches;
+//   };
+
+//   tree = { getHeight, growTree, getTreeSpecies };
+// }
+
+var tree = (function(originalTree) {
   let height = 10;
   let species = "fir";
-
   const getHeight = () => {
     return height;
   };
 
-  const getTreeSpecies = () => species;
+  originalTree.getTreeSpecies = () => species;
 
-  const growTree = inches => {
+  originalTree.growTree = inches => {
     height = height + inches;
   };
 
-  tree = { getHeight, growTree, getTreeSpecies };
-}
+  return originalTree
+})(tree || {});
+

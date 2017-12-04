@@ -1,16 +1,26 @@
 // Tree DOM interactions
 
-{
+// {
+//   let randomVar = "protected";
+//   const outputToDOM = () => {
+//     let myTree = tree.getTreeSpecies();
+//     document.getElementById("myTree").innerHTML = `My fave tree is a ${myTree} tree`;
+//   };
+
+//   tree.outputToDOM = outputToDOM;
+// }
+
+// tree.outputToDOM();
+
+var tree = (function(originalTree) {
   let randomVar = "protected";
-  const outputToDOM = () => {
+
+  originalTree.outputToDOM = () => {
     let myTree = tree.getTreeSpecies();
     document.getElementById("myTree").innerHTML = `My fave tree is a ${
       myTree
     } tree`;
   };
 
-  tree.outputToDOM = outputToDOM;
-  // tree.thing = randomVar;
-}
-
-tree.outputToDOM();
+  return originalTree;
+})(tree || {});

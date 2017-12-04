@@ -30,3 +30,6 @@ console.log("the val I want", theValueIWant);
   let inside = "Block Scope";
 }
 // console.log("inside block scope", inside);
+
+// This works because we load all the tree stuff first, so HTMLMainElement.js has access to the tree object we build in our modules
+tree.outputToDOM();
