@@ -1,0 +1,52 @@
+@import "variables";
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin my-btn($color, $radius, $hover) {
+  color: $color;
+  border-width: 2px;
+  @include border-radius($radius);
+
+  &:hover {
+    color: $hover;
+  }
+}
+
+%block {
+  width: 150px;
+  height: 250px;
+  padding-left: 10px;
+  border: 2px solid;
+  float: left;
+}
+
+.btn {
+  @include my-btn(red,12px ,green);
+}
+
+body {
+  background: $background;
+}
+
+li {
+  color: $awesome-color;
+}
+
+p {
+  color: $awesome-color;
+}
+
+.card-wrapper {
+  @extend %block;
+  border-color: purple;
+  @include border-radius(8px);
+
+  img {
+    width: 100px;
+  }
+}

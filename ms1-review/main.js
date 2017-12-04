@@ -67,7 +67,7 @@ const buttonFactory = {
     let pairCat = this.pairCat;
     let h1 = document.getElementById(`${this.category}H1`);
     if (btnEl.classList.contains("active")) {
-      btnEl.innerHTML = `${cat}ify It!`;
+      btnEl.innerHTML = `${cat}ify it!`;
       h1.innerHTML = capitalizeWord(pairCat);
     } else {
       btnEl.innerHTML = `${pairCat}fy It!`;
@@ -91,7 +91,7 @@ function makeButton(category, categoryPair) {
   let btnElement = document.createElement("button");
   btnElement.setAttribute("id", btn.category);
   btnElement.setAttribute("data-pairId", btn.pairCat);
-  btnElement.innerHTML = `${btn.pairCat}fy It!`;
+  btnElement.innerHTML = `${btn.pairCat}fy it!`;
 
   btnElement.addEventListener("click", () => {
     btn.updateCards();
@@ -99,10 +99,9 @@ function makeButton(category, categoryPair) {
   });
   return btnElement;
 }
-
 // **************************** DOM population on page load **********************************
 // this replaces the two loops we ran to populate each <article> with its pictures
-(function populateGalleries(picCollection) {
+(function(picCollection) {
   // loop through the array of arrays we passed in
   picCollection.forEach(function(pics, index) {
     let parentEl, cat, pairCat;
@@ -121,4 +120,4 @@ function makeButton(category, categoryPair) {
     let button = makeButton(cat, pairCat);
     parentEl.appendChild(button);
   });
-})([bowPics.pics, dogPics.pics]); // This function runs right after we define it. We pass in the two pics arrays
+})([bowPics.pics, dogPics.pics]);

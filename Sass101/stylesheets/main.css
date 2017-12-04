@@ -1,0 +1,36 @@
+.card-wrapper {
+  width: 150px;
+  height: 250px;
+  padding-left: 10px;
+  border: 2px solid;
+  float: left; }
+
+.btn {
+  color: red;
+  border-width: 2px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  border-radius: 12px; }
+  .btn:hover {
+    color: green; }
+
+body {
+  background: lightsteelblue; }
+
+li {
+  color: goldenrod; }
+
+p {
+  color: goldenrod; }
+
+.card-wrapper {
+  border-color: purple;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px; }
+  .card-wrapper img {
+    width: 100px; }
+
+/*# sourceMappingURL=main.css.map */
