@@ -1,0 +1,20 @@
+#book-sale {
+  margin-bottom: 30px;
+}
+
+#book-sale img {
+  height: 200px;
+}
+
+.is-hidden {
+  opacity: 0;
+}
+
+#cart-thumb img {
+  height: 70px;
+}
+
+.hello-world {
+  color: #bada55;
+  font-size: 110%;
+}
