@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link href="css/style.css" rel="stylesheet"> -->
-  </head>
-  <body>
-    <h2>Grunt and Browserify Make Modules, Oh My</h2>
 
-    <script src="main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Carz R Us</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input id="editInput" type="text" class="form-control" placeholder="New description">
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="inventory-cards" class="inventory-cards"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+    crossorigin="anonymous"></script>
+  <!-- <script src="javascripts/carFactory.js"></script>
+  <script src="javascripts/events.js"></script>
+  <script src="javascripts/carController.js"></script>
+  <script src="javascripts/domInteraction.js"></script> -->
+  <script src="dist/bundle.js"></script>
+</body>
+
 </html>
