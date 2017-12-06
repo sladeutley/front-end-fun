@@ -19,11 +19,19 @@
             <input id="editInput" type="text" class="form-control" placeholder="New description">
           </div>
         </div>
+        <div class="navbar-right navbar-form">
+          <button class="btn btn-primary" id="contactBtn">contact us</button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <div id="inventory-cards" class="inventory-cards"></div>
+  <!-- How could we refactor the JS and HTML to better swap out the inventory and form pages ( or 'views')?
+  Makes for a juicy challenge! -->
+  <div id="content">
+    <div id="inventory-cards" class="inventory-cards"></div>
+    <div id="contact" class="is-hidden"></div>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"

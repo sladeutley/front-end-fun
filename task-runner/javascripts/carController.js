@@ -1,11 +1,9 @@
-'use strict';
-let events = require('./events');
+"use strict";
+const contactForm = document.getElementById("contact");
+const cards = document.getElementById("inventory-cards");
 
 // DOM Population stuff
-const populatePage = inventory => {
-  // Grab the div we want to apppend the cards to
-  const cards = document.getElementById("inventory-cards");
-
+const showInventory = (inventory, callback) => {
   // Loop over the inventory and populate the page
   inventory.forEach(function(car, index) {
     let carCard = buildCard(car, index);
@@ -14,13 +12,13 @@ const populatePage = inventory => {
     cards.appendChild(cardDiv);
   });
 
-  // Now that the DOM is loaded, establish all the other event listeners needed
-  events();
+  // Now that the DOM is loaded, establish all the other event listeners needed ('callback' will be activateEvents method)
+  callback();
 };
 
 const buildCard = (car, index) => {
   // Build a string that creates a single card
-  var card = "",
+  let card = "",
     card_wrapper = `<section id="card--${
       index
     }" class="card-wrapper" style="border: 2px solid ${car.color}">`,
@@ -42,4 +40,27 @@ const buildCard = (car, index) => {
   return card;
 };
 
-module.exports = { populatePage };
+const showContactForm = () => {
+  let form = `<div class="form-wrapper">
+    <form>
+      <div class="form-group">
+        <label for="formEmail">Email address</label>
+        <input type="email" class="form-control" id="formEmail1" placeholder="you@you.com">
+      </div>
+      <div class="form-group">
+        <label for="formName">Your Name</label>
+        <input type="text" class="form-control" id="formName" placeholder="first and last">
+      </div>
+      <div class="form-group">
+        <label for="formComments">Your Comments</label>
+        <textarea rows="3" id="formComments"></textarea>
+      </div>
+    </form>
+    <button class="btn btn-primary">Submit</button>
+  </div>`;
+  let formWrapper = document.createElement("div");
+  formWrapper.innerHTML = form;
+  contactForm.appendChild(formWrapper);
+};
+
+module.exports = { showInventory, showContactForm };
