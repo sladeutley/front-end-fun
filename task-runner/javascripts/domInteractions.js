@@ -1,5 +1,6 @@
 "use strict";
 const userInput = document.getElementById("editInput");
+const contactBtn = document.getElementById("contactBtn");
 
 // DOM interaction stuff
 const highlightCard = event => {
@@ -26,4 +27,13 @@ const editCard = event => {
   description.innerHTML = userInput.value;
 };
 
-module.exports = { editCard, highlightCard };
+const handleBtn = () => {
+  // Holy Cow, what is this? Look up "make an array with spread operator", and hold onto your brain
+  let content = [...document.getElementById("content").children];
+  content.forEach( (child) => {
+    child.classList.toggle("is-hidden");
+  });
+  contactBtn.innerHTML = contactBtn.innerText.includes("contact") ? "back to cars" : "contact us";
+};
+
+module.exports = { editCard, highlightCard, handleBtn };

@@ -4,12 +4,16 @@ const dom = require('./domInteractions');
 
 const cardWrapper = document.getElementById("inventory-cards");
 const input = document.getElementById("editInput");
+const contactBtn = document.getElementById("contactBtn");
 
 const throwError = () => {
   window.alert("Please click on a card to begin editing");
 };
 
 const activateEvents = () => {
+  console.log('events called');
+
+  contactBtn.addEventListener("click", dom.handleBtn);
   cardWrapper.addEventListener("click", dom.highlightCard);
   input.addEventListener("keyup", function() {
     console.log("Just checking");
