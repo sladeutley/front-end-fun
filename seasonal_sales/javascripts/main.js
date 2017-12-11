@@ -1,5 +1,6 @@
 "use strict";
 let formatter = require('./formatter');
+require('./DOMInteraction');
 
 // categories XHR
 let categoryData = null;
