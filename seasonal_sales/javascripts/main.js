@@ -1,11 +1,14 @@
 "use strict";
+let formatter = require('./formatter');
 
 // categories XHR
+let categoryData = null;
+
 const categoryReq = new XMLHttpRequest();
 const parseCatData = () => {
-  const data = JSON.parse(event.target.responseText).categories;
-  // formatData(data);
-  console.log("Cat data", data);
+  const catData = JSON.parse(event.target.responseText).categories;
+  categoryData = catData;
+  prodsReq.send();
 };
 
 categoryReq.addEventListener("load", parseCatData);
@@ -15,11 +18,9 @@ categoryReq.send();
 // products XHR
 const prodsReq = new XMLHttpRequest();
 const parseProdData = () => {
-  const data = JSON.parse(event.target.responseText).products;
-  // formatData(data);
-  console.log("prod data", data);
+  const prodData = JSON.parse(event.target.responseText).products;
+  formatter.formatData(categoryData, prodData);
 };
 
 prodsReq.addEventListener("load", parseProdData);
 prodsReq.open("GET", "data/products.json");
-prodsReq.send();
