@@ -1,0 +1,32 @@
+{
+  "types": [
+    {
+      "id": 0,
+      "category": 0,
+      "name": "personal",
+      "description":
+        "Fireworks intended for recreational use during holiday celebrations"
+    },
+    {
+      "id": 1,
+      "category": 1,
+      "name": "fragmentation",
+      "description":
+        "Sometimes you just gotta fragment"
+    },
+    {
+      "id": 3,
+      "category": 0,
+      "name": "illegal",
+      "description":
+        "If anyone asks, we didn't sell you these"
+    },
+    {
+      "id": 4,
+      "category": 1,
+      "name": "illegal",
+      "description":
+        "If anyone asks, we didn't sell your company these"
+    }
+  ]
+}
