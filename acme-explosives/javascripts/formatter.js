@@ -31,7 +31,7 @@ module.exports.formatData = data => {
   const cats = data[0];
 
   let revisedProds = products.map(prod => {
-    let currentProd = Object.keys(prod);
+    let currentProd = Object.keys(prod); //  // Object.keys(prod) - makes an array of all the keys of an object, in this case prod)
     console.log(currentProd);
     let prodType = types.find(type => type.id === prod[currentProd].type );
     console.log('prodType', prodType);
@@ -45,3 +45,4 @@ module.exports.formatData = data => {
   console.log("revised", revisedProds);
   return revisedProds;
 };
+

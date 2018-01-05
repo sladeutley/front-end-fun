@@ -1,0 +1,32 @@
+{
+  "name": "front-end-fun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sladeutley/front-end-fun.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sladeutley/front-end-fun/issues"
+  },
+  "homepage": "https://github.com/sladeutley/front-end-fun#readme",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.2.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "matchdep": "^2.0.0",
+    "moment": "^2.20.1",
+    "npm": "^5.6.0"
+  }
+}
