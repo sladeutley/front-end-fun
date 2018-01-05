@@ -12,6 +12,7 @@ console.log("Acme Explosives");
 const $ = require("jquery");
 const factory = require("./factory");
 const formatter = require('./formatter');
+const prodView = require('./prodView');
 
 const acmeData = [];
 
@@ -45,7 +46,8 @@ let promArr = [
 ];
 Promise.all(promArr)
 .then( (dataArr) => {
-  formatter.formatData(dataArr);
+  let revisedProds = formatter.formatData(dataArr);
+  prodView.displayProducts(revisedProds);
 })
 .catch( (err) => {
   console.log(err);
