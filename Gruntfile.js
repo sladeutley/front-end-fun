@@ -13,7 +13,7 @@ module.exports = function(grunt){
         sass: {
             dist: {
                 files: {
-                    'css/main.css': 'sass/style.scss'
+                    'css/main.css': 'sass/main.scss'
                 }
             }
         },
@@ -28,7 +28,7 @@ module.exports = function(grunt){
             }
         },
         browserify: {
-            'dist/bundle.js': ['scripts/main.js']
+            'dist/bundle.js': ['javascripts/main.js']
         }
     });
     require('matchdep').filter('grunt-*').forEach(grunt.loadNpmTasks);
