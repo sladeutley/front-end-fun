@@ -9,14 +9,18 @@
 
   <h1>Firebase stuff</h1>
 
-  <input type="text" placeholder="name" id="custName" value="Fred Jones">
-  <input type="text" placeholder="age" id="custAge" value=103>
-  <input type="text" placeholder="member level" id="custLevel" value="silver">
+  <!-- How could we hide this btn after signing in and only show the next section if user is logged in? -->
+  <button id="auth-btn" type="button">Sign in with Google</button>
 
-  <button id="addCustomer">add customer</button>
+  <div id="todos"></div>
 
+  <hr/>
+  <h4>Add new guilt to your day!</h4>
+  <input type="text" placeholder="task" id="todoTask">
+  <input type="text" placeholder="description" id="todoDesc">
 
-  <div id="categories"></div>
+  <button id="addTodo">add todo</button>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="dist/app.js"></script>

@@ -3,13 +3,13 @@
 const fbURL = "https://c23-fb-demo.firebaseio.com";
 
 // firebase module
-function getCats() {
+function getTodos() {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: "https://c23-fb-demo.firebaseio.com/categories.json"
+      url: "https://c23-fb-demo.firebaseio.com/todos.json"
     })
-      .done(cats => {
-        resolve(cats);
+      .done(todos => {
+        resolve(todos);
       })
       .fail(error => {
         console.log("uh-oh", error.statusText);
@@ -18,22 +18,10 @@ function getCats() {
   });
 }
 
-function updateCat(id, description) {
+function deleteTodo(id) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: `${fbURL}/categories/${id}.json`,
-      method: "PATCH",
-      data: JSON.stringify({ description })
-    }).done(data => {
-      console.log("updated obj", data);
-    });
-  });
-}
-
-function deleteCat(id) {
-  return new Promise((resolve, reject) => {
-    $.ajax({
-      url: `https://c23-fb-demo.firebaseio.com/categories/${id}.json`,
+      url: `https://c23-fb-demo.firebaseio.com/todos/${id}.json`,
       method: "DELETE"
     })
       .done(data => {
@@ -46,88 +34,77 @@ function deleteCat(id) {
   });
 }
 
-function addCustomer(newCustomer) {
+function addTodo(newTodo) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: `${fbURL}/customers.json`,
+      url: `${fbURL}/todos.json`,
       method: "POST",
-      data: JSON.stringify(newCustomer)
-    }).done(customerId => {
-      console.log(customerId);
+      data: JSON.stringify(newTodo)
+    }).done(todoId => {
+      console.log(todoId);
+      resolve();
     });
   });
 }
-
-function getActiveCustomers() {
-  return new Promise((resolve, reject) => {
-    $.ajax({
-      url: `https://c23-fb-demo.firebaseio.com/customers.json?orderBy="name"&equalTo=true`
-    }).done(activeCusts => {
-      console.log(activeCusts);
-    });
-  });
-}
-getActiveCustomers();
 
 // end of FB module
 
-function listCats(catData) {
-  console.log("cats", catData);
-  let catsArr = [];
-  let keys = Object.keys(catData);
+function listTodos(todoData) {
+  console.log("todos", todoData);
+  let todoArr = [];
+  let keys = Object.keys(todoData);
   keys.forEach(key => {
-    catData[key].id = key;
-    catsArr.push(catData[key]);
+    todoData[key].id = key;
+    todoArr.push(todoData[key]);
   });
-  console.log(catsArr);
-  $("#categories").html("");
-  catsArr.forEach(cat => {
-    $("#categories").append(
-      `<h3>${cat.name}</h3>
-      <input type="text" class="catForm" placeholder="description">
-      <button id="${cat.id}" class="updateCat">updateCat</button>
-        <button id="${
-          cat.id
-        }" class="deleteCat">delete</button>`
+  console.log(todoArr);
+  $("#todos").html("");
+  todoArr.forEach(todo => {
+    $("#todos").append(
+      `<h5>${todo.task}</h3>
+      <p>${todo.description}</p>
+      <button id="${
+        todo.id
+      }" class="deleteTodo">delete</button>`
     );
   });
 }
 
-getCats().then(catData => {
-  listCats(catData);
-});
+function displayTodos() {
+  getTodos().then(todoData => {
+    listTodos(todoData);
+  });
+}
 
-$(document).on("click", ".deleteCat", function() {
-  let catId = $(this).attr("id");
-  console.log("catId", catId);
-  deleteCat(catId)
+$(document).on("click", ".deleteTodo", function() {
+  let todoId = $(this).attr("id");
+  console.log("Id", todoId);
+  deleteTodo(todoId)
     .then(() => {
-      alert("Category deleted");
-      return getCats();
+      alert("Todo deleted");
+      return getTodos();
     })
-    .then(cats => {
-      listCats(cats);
+    .then(todos => {
+      listTodos(todos);
     })
     .catch(err => {
       console.log("oops", err);
     });
 });
 
-$("#addCustomer").click(function() {
-  console.log("addCust called");
+$("#addTodo").click(function() {
+  console.log("addTodo called");
 
-  let custObj = {
-    age: $("#custAge").val(),
-    name: $("#custName").val(),
-    member_level: $("#custLevel").val(),
-    active: true
+  let todoObj = {
+    task: $("#todoTask").val(),
+    description: $("#todoDesc").val(),
+    uid: null
   };
-  addCustomer(custObj);
+  addTodo(todoObj)
+  .then( () => {
+    displayTodos();
+  });
 });
 
-$(document).on("click", ".updateCat", function(){
-  console.log('updateCat clicked');
-
-  let id = $(this).attr("id");
-  updateCat(id, $(this).prev(".catForm").val());
-});
+// kick it all off
+displayTodos();
