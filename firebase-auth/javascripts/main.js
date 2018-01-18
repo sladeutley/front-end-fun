@@ -1,12 +1,16 @@
 "use strict";
 
 const fbURL = "https://c23-fb-demo.firebaseio.com";
+const $ = require("jquery");
+const firebase = require("./config/fb-config");
+const auth = require("./user-factory");
+// let user = null;
 
-// firebase module
-function getTodos() {
+// firebase data module
+function getTodos(uid) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: "https://c23-fb-demo.firebaseio.com/todos.json"
+      url: `https://c23-fb-demo.firebaseio.com/todos.json?orderBy="uid"&equalTo="${uid}"`
     })
       .done(todos => {
         resolve(todos);
@@ -47,7 +51,7 @@ function addTodo(newTodo) {
   });
 }
 
-// end of FB module
+// end of FB data module
 
 function listTodos(todoData) {
   console.log("todos", todoData);
@@ -63,15 +67,13 @@ function listTodos(todoData) {
     $("#todos").append(
       `<h5>${todo.task}</h3>
       <p>${todo.description}</p>
-      <button id="${
-        todo.id
-      }" class="deleteTodo">delete</button>`
+      <button id="${todo.id}" class="deleteTodo">delete</button>`
     );
   });
 }
 
-function displayTodos() {
-  getTodos().then(todoData => {
+function displayTodos(uid) {
+  getTodos(uid).then(todoData => {
     listTodos(todoData);
   });
 }
@@ -94,17 +96,50 @@ $(document).on("click", ".deleteTodo", function() {
 
 $("#addTodo").click(function() {
   console.log("addTodo called");
+  let currentUser = firebase.auth().currentUser;
+  console.log("current User", currentUser);
 
   let todoObj = {
     task: $("#todoTask").val(),
     description: $("#todoDesc").val(),
-    uid: null
+    uid: currentUser.uid
   };
-  addTodo(todoObj)
-  .then( () => {
+  addTodo(todoObj).then(() => {
     displayTodos();
   });
 });
 
 // kick it all off
-displayTodos();
+// displayTodos();
+
+// setTimeout(() => {
+//   console.log("Who is our user?", firebase.auth().currentUser);
+// }, 1000);
+
+firebase.auth().onAuthStateChanged(() => {
+  console.log("Who is our user?", firebase.auth().currentUser);
+});
+
+$("#auth-btn").click(() => {
+  auth
+    .authUser()
+    .then(function(result) {
+      // The signed-in user info.
+      let user = result.user;
+      console.log("user", user);
+      displayTodos(user.uid);
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+});
+
+$("#signout-btn").click( () => {
+  auth.logout()
+  .then( () => {
+    console.log('logged out!', firebase.auth().currentUser);
+
+  });
+});
