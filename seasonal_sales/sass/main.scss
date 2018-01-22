@@ -1,7 +1,23 @@
+
+// Whoah. what's this? An example of the amazing, new-ish CSS Grid,
+// built into the language. Powerful and clean. Going to take over the world
+.products-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: minmax(200px, auto);
+}
+
 .prodCard {
   border: 1px solid saddlebrown;
+  padding: 4px;
+  background: cornflowerblue;
 }
 
 .isHidden {
   display: none;
+}
+
+.discountPrice {
+  font-weight: bold;
 }
