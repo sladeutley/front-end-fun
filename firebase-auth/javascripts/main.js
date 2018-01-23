@@ -4,7 +4,6 @@ const fbURL = "https://c23-fb-demo.firebaseio.com";
 const $ = require("jquery");
 const firebase = require("./config/fb-config");
 const auth = require("./user-factory");
-// let user = null;
 
 // firebase data module
 function getTodos(uid) {
@@ -136,10 +135,8 @@ $("#auth-btn").click(() => {
     });
 });
 
-$("#signout-btn").click( () => {
-  auth.logout()
-  .then( () => {
-    console.log('logged out!', firebase.auth().currentUser);
-
+$("#signout-btn").click(() => {
+  auth.logout().then(() => {
+    console.log("logged out!", firebase.auth().currentUser);
   });
 });
