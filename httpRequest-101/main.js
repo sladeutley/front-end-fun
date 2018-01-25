@@ -3,8 +3,6 @@ console.log("First line in JS file", Date.now());
 // 1. create a new request object
 let myRequest = new XMLHttpRequest();
 
-// console.log('myRequest', myRequest);
-
 // 2. Define our callbacks
 function executeThisIfXHRFails() {
   console.log("An error occured while transferring the data");
