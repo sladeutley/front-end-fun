@@ -1,0 +1,9 @@
+
+
+<input type="text" ng-model="songName">
+<h2>These are songs!</h2>
+<ul>
+  <li ng-repeat="song in songList | filter: songName">
+    <a href="#!/songs/{{song.id}}">{{song.title}}, by {{song.artist}}</a>
+  </li>
+</ul>

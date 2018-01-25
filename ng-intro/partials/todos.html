@@ -1,0 +1,10 @@
+<div class="todo">
+  <h3>Todo list of awesomeness</h3>
+  <ul>
+    <li ng-show="!thingy.completed" ng-repeat="thingy in todos">
+      <input type="checkbox" ng-model="thingy.completed"> {{thingy.name}}
+    </li>
+    <input type="text" ng-model="message" placeholder={{placeholderThing}}>
+    <button ng-click="printValue()">click me!!!</button>
+  </ul>
+</div>
