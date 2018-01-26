@@ -19,7 +19,7 @@ angular.module("funWithStuff", ["ngRoute"])
       templateUrl: "partials/songDetail.html",
       controller: "SongDetailCtrl"
     })
-    .otherwise("/")
+    .otherwise("/");
 })
 .controller("MessageCtrl", function($scope, $rootScope) {
   $scope.message = "Welcome to Angular!";
