@@ -9,7 +9,7 @@ angular.module("funWithStuff").controller("TodoCtrl", function($scope) {
     console.log($scope.message);
   };
 
-  $scope.placeholderThing = "Type over this"
+  $scope.placeholderThing = "Type over this";
 
   $scope.todos = [
     { name: "Master HTML/CSS/JS", completed: true },
